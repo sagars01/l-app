@@ -9,9 +9,11 @@ const booking = {
         };
         bookingModel.newBooking(bookingParams, (results) => {
             if (results.Error) {
-                res.status(500).send(results.Error);
+                res.status(400).send(results.Error.sqlMessage);
+            } else {
+                res.send('OK');
             }
-            res.send('OK');
+
         })
     }
 }

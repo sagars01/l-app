@@ -18,4 +18,20 @@ users.getAllUsers = function (result) {
     });
 }
 
+users.getUserBookings = function (userId, result) {
+    const bookingQuery = `SELECT id, property_id, property_location as city, property_name, from_unixtime(booking_date) as booking_date FROM users AS u
+    LEFT JOIN bookings AS b ON u.id = b.booking_userid
+    LEFT JOIN property AS p ON p.idproperty = b.property_id
+    WHERE id = ${userId}`
+
+    sql.query(bookingQuery, (err, res) => {
+        if (err) {
+            result({ Error: err })
+        } else {
+            result(res);
+        }
+
+    })
+}
+
 module.exports = users;
