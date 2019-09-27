@@ -5,7 +5,10 @@ Requirement -
 MySQL
 NodeJS 9+
 
+
 Steps to run the app locally :
+
+** `npm i -g @angular/cli@7.3.7`
 
 1. EXECUTE the SQL_DUMP.sql to create the database and the tables.
 https://dba.stackexchange.com/questions/24371/how-to-import-a-sql-file-in-mysql
