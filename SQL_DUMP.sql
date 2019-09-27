@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `LimeMaster` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `LimeMaster`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: LimeMaster
@@ -28,8 +30,9 @@ CREATE TABLE `bookings` (
   `booking_userid` varchar(45) NOT NULL,
   `booking_date` varchar(45) NOT NULL,
   `booking_uid` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_bookings`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id_bookings`),
+  UNIQUE KEY `booking_uid_UNIQUE` (`booking_uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +41,7 @@ CREATE TABLE `bookings` (
 
 LOCK TABLES `bookings` WRITE;
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` VALUES (1,'8','1','1/20/2019','xkkGeA'),(2,'20','5','12/24/2018','xfjJoH'),(3,'11','5','10/30/2018','emrHjS'),(4,'19','20','10/23/2018','wtqXgG'),(5,'18','11','2/10/2019','fjq7lF'),(6,'14','15','4/15/2019','bisBrT'),(7,'1','12','4/19/2019','afcUzS'),(8,'4','9','4/23/2019','tcdTrC'),(9,'3','6','7/20/2019','cvw9zL'),(10,'5','4','3/24/2019','uzh5cK'),(11,'6','7','2/25/2019','ihbZqE'),(12,'20','21','12/15/2018','nqe7nH'),(13,'19','19','10/8/2018','thxHjN'),(14,'13','17','3/27/2019','chvWwS'),(15,'12','15','5/25/2019','jgaNaS'),(16,'10','4','5/13/2019','xeiGgQ'),(17,'17','3','11/27/2018','mll5zD'),(18,'15','8','9/10/2019','jppNqF'),(19,'11','14','9/19/2019','pyzBkR'),(20,'20','15','8/9/2019','vmnEvV');
+INSERT INTO `bookings` VALUES (1,'8','1','1/20/2019','xkkGeA'),(2,'20','5','12/24/2018','xfjJoH'),(3,'11','5','10/30/2018','emrHjS'),(4,'19','20','10/23/2018','wtqXgG'),(5,'18','11','2/10/2019','fjq7lF'),(6,'14','15','4/15/2019','bisBrT'),(7,'1','12','4/19/2019','afcUzS'),(8,'4','9','4/23/2019','tcdTrC'),(9,'3','6','7/20/2019','cvw9zL'),(10,'5','4','3/24/2019','uzh5cK'),(11,'6','7','2/25/2019','ihbZqE'),(12,'20','21','12/15/2018','nqe7nH'),(13,'19','19','10/8/2018','thxHjN'),(14,'13','17','3/27/2019','chvWwS'),(15,'12','15','5/25/2019','jgaNaS'),(16,'10','4','5/13/2019','xeiGgQ'),(17,'17','3','11/27/2018','mll5zD'),(18,'15','8','9/10/2019','jppNqF'),(19,'11','14','9/19/2019','pyzBkR'),(20,'20','15','8/9/2019','vmnEvV'),(24,'8','8','27/09/2019','xfdgth'),(25,'12','8','1569594058','8121569594058'),(26,'12','8','1569594106','8121569594106'),(27,'12','8','1569594113','8121569594113'),(28,'12','8','1569594382','8121569594382'),(29,'12','8','1569594577','8121569594577');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-27  8:53:09
+-- Dump completed on 2019-09-27 22:43:57
