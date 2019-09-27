@@ -1,0 +1,12 @@
+<div class="map-wrapper">
+  <div class="form-group map-input">
+    <form class="example-form">
+      <mat-form-field class="example-full-width width-100">
+        <input matInput placeholder="Search a place">
+      </mat-form-field>
+    </form>
+  </div>
+  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+  </agm-map>
+</div>

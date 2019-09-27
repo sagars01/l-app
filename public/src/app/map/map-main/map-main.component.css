@@ -1,0 +1,19 @@
+agm-map {
+  height: 100%;
+}
+
+:host {
+  height: 100%;
+}
+
+.map-wrapper {
+  height: 100%;
+  position: relative;
+}
+
+.map-input {
+  position: absolute;
+  z-index: 1;
+  background: #ffffffc4;
+  width: 100%;
+}

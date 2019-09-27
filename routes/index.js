@@ -7,7 +7,7 @@ const bookingRoutes = require('./book');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  // res.render('index', { title: 'Express' });
+  res.send(express.static(path.join(__dirname, 'public/dist/public')))
 });
 
 /* GET users listing. */
