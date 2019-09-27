@@ -7,11 +7,11 @@ const booking = {
             user_id: req.body.user_id,
             property_id: req.body.property_id,
         };
-        bookingModel.newBooking(bookingParams , (results) => {
-            if(results.Error) {
+        bookingModel.newBooking(bookingParams, (results) => {
+            if (results.Error) {
                 res.status(500).send(results.Error);
             }
-            res.send(results);
+            res.send('OK');
         })
     }
 }

@@ -28,12 +28,28 @@ property.getPropertyByLocation = function (locationParams, result) {
         ) AS distance 
         FROM property 
         HAVING distance < ${radiusOfSearch}
-        ORDER BY distance;
+        ORDER BY distance LIMIT 10;
 
     `;
     sql.query(getPropertyQuery, (err, res) => {
         if (err) {
-            result(err)
+            result({ Error: err })
+        } else {
+            result(res);
+        }
+    });
+
+}
+
+property.getPropertyBookingsByPropertyID = function (idproperty, result) {
+    const query = `
+    SELECT * FROM bookings 
+    RIGHT JOIN property ON  bookings.property_id = property.idproperty 
+    RIGHT JOIN users ON bookings.booking_userid = users.id
+    WHERE idproperty = ${idproperty};`
+    sql.query(query, (err, res) => {
+        if (err) {
+            result({ Error: err })
         } else {
             result(res);
         }

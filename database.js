@@ -3,12 +3,6 @@
 const mysql = require('mysql');
 const config = require('./config/config');
 
-const connection = mysql.createConnection(config.database);
-connection.connect((err) => {
-    if (err) { 
-        // Here we can add loggers to 
-        console.log(err) 
-    };
-})
+const connection = mysql.createPool(config.database);
 
 module.exports = connection;
