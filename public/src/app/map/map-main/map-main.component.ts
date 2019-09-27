@@ -14,7 +14,7 @@ export class MapMainComponent implements OnInit {
   zoom = 16;
 
   // tslint:disable-next-line:max-line-length
-  placeSearchAPI = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=%2B61293744000&inputtype=phonenumber&fields=place_id&key=AIzaSyAYgEPaCX_KfngPWsnwXfIjOrgbh4Smvf8';
+  placeSearchAPI = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=%2B61293744000&inputtype=phonenumber&fields=place_id&key=<YOUR_API_KEY>';
 
   ngOnInit() {
     this.userLocation.getCurrentPosition().subscribe(

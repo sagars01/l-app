@@ -217,7 +217,7 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
                 _material_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_5__["AgmCoreModule"].forRoot({
-                    apiKey: 'AIzaSyAYgEPaCX_KfngPWsnwXfIjOrgbh4Smvf8'
+                    apiKey: 'put your api key'
                 }),
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
             ],
@@ -275,7 +275,7 @@ var MapMainComponent = /** @class */ (function () {
         this.userLocation = userLocation;
         this.zoom = 16;
         // tslint:disable-next-line:max-line-length
-        this.placeSearchAPI = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=%2B61293744000&inputtype=phonenumber&fields=place_id&key=AIzaSyAYgEPaCX_KfngPWsnwXfIjOrgbh4Smvf8';
+        this.placeSearchAPI = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=%2B61293744000&inputtype=phonenumber&fields=place_id&key=<YOUR_API_KEY>';
     }
     MapMainComponent.prototype.ngOnInit = function () {
         var _this = this;

@@ -26,7 +26,7 @@ import { UserLocationService } from './services/user-location.service';
     ReactiveFormsModule,
     MaterialModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAYgEPaCX_KfngPWsnwXfIjOrgbh4Smvf8'
+      apiKey: 'put your api key'
     }),
     BrowserAnimationsModule,
   ],
