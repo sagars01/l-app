@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GetPropertyByLocationService } from 'src/app/services/get-property-bylocation.service';
 
 @Component({
   selector: 'app-property-list',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertyListComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private propertiesNearUserService: GetPropertyByLocationService,
+  ) { }
 
+  properties;
   ngOnInit() {
+    this.propertiesNearUserService.getPropertyBasedOnUserLocation('', '').subscribe(
+      (data) => {
+        this.properties = data;
+      }
+    );
   }
 
 }

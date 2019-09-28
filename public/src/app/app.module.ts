@@ -12,6 +12,10 @@ import { AppComponent } from './app.component';
 import { MapMainComponent } from './map/map-main/map-main.component';
 import { PropertyListComponent } from './app-main/property-list/property-list.component';
 import { UserLocationService } from './services/user-location.service';
+import { environment } from 'src/environments/environment';
+import { DataSourceService } from './services/datasource/datasource.service';
+import { GetPropertyByLocationService } from './services/get-property-bylocation.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,16 +25,17 @@ import { UserLocationService } from './services/user-location.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     AgmCoreModule.forRoot({
-      apiKey: 'put your api key'
+      apiKey: environment.GoogleMAPAPIKey
     }),
     BrowserAnimationsModule,
   ],
-  providers: [UserLocationService],
+  providers: [UserLocationService, DataSourceService, GetPropertyByLocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { Observer } from "rxjs/Observer";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 @Injectable()
 export class UserLocationService {
@@ -24,7 +24,7 @@ export class UserLocationService {
           observer.complete();
         },
         (error: PositionError) => {
-          console.log("Geolocation service: " + error.message);
+          console.log('Geolocation service: ' + error.message);
           observer.error(error);
         }
       );
