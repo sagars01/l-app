@@ -9,7 +9,7 @@ Google Maps.
 
 Steps to run the app locally :
 
-** `npm i -g @angular/cli@7.3.7`
+** `npm i -g @angular/cli@7.3.7`,
 ** GET YOUR API KEY FOR GOOGLE MAPS FROM GCP CONSOLE.
 
 1. EXECUTE the SQL_DUMP.sql to create the database and the tables.
