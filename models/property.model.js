@@ -17,6 +17,7 @@ property.getPropertyByLocation = function (locationParams, result) {
         property_name,
         property_lat,
         property_long,
+        property_location,
         (
         6371 *
         acos(cos(radians(${locationParams.user_lat})) * 
