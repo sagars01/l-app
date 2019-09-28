@@ -1,0 +1,12 @@
+.card-header-image {
+  background-image: url('https://icon-library.net/images/hotel-vector-icon/hotel-vector-icon-3.jpg');
+  background-size: cover;
+}
+
+.property-card {
+  margin-bottom: 1rem;
+}
+
+.property-card:last-child {
+  margin-bottom: 0;
+}
