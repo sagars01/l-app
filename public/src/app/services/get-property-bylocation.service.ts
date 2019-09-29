@@ -10,11 +10,16 @@ export class GetPropertyByLocationService {
     private lng;
     private propertyData$: Observable<any>;
     getPropertyBasedOnUserLocation(latitude, longitude) {
-        const mockData = {
-            user_lat: '52.11',
-            user_long: '13.23232332'
+        const locationParams: ILocationParams = {
+            user_lat: latitude,
+            user_long: longitude
         };
-        return this.dataSource.post(userServices.GetPropertiesByUserLocation, mockData);
+        return this.dataSource.post(userServices.GetPropertiesByUserLocation, locationParams);
     }
 
+}
+
+interface ILocationParams {
+    user_lat: string | number;
+    user_long: string | number;
 }

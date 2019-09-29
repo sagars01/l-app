@@ -1,10 +1,27 @@
-<div class="property-list-wrapper">
-  <mat-card class="property-card" *ngFor="let property of properties">
+<div *ngIf="isLoading == false">
+  <div class="property-list-wrapper" *ngIf="properties.length > 1">
+    <mat-card class="property-card" *ngFor="let property of properties">
+      <mat-card-header class="relative-position">
+        <div mat-card-avatar class="card-header-image"></div>
+        <mat-card-title>{{property.property_name}}</mat-card-title>
+        <mat-card-subtitle>{{property.property_location}}</mat-card-subtitle>
+        <button class="book-property-btn" mat-raised-button color="primary">Book</button>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  <mat-card class="property-card" *ngIf="properties.length == 0">
     <mat-card-header class="relative-position">
-      <div mat-card-avatar class="card-header-image"></div>
-      <mat-card-title>{{property.property_name}}</mat-card-title>
-      <mat-card-subtitle>{{property.property_location}}</mat-card-subtitle>
-      <button class="book-property-btn" mat-raised-button color="primary">Book</button>
+      <mat-card-subtitle>
+        <h3>No properties in this area.</h3>
+      </mat-card-subtitle>
     </mat-card-header>
   </mat-card>
+
 </div>
+<mat-card class="property-card" *ngIf="isLoading">
+  <mat-card-header class="relative-position">
+    <mat-card-subtitle>
+      <h5>Loading Properties Near You.....</h5>
+    </mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

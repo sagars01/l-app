@@ -21,7 +21,7 @@ export class AppStoreService extends ObservableStore<IStore> {
     return of(geoCodingData);
   }
 
-  add(data: IStore) {
+  add(data) {
     const state = this.getState();
     state.geoCodingData = data;
     this.setState({ geoCodingData: state.geoCodingData }, 'add_geoCodingData');
@@ -30,4 +30,5 @@ export class AppStoreService extends ObservableStore<IStore> {
 
 interface IStore {
   geoCodingData: any;
+  // lat, lng
 }

@@ -41,7 +41,7 @@ module.exports = ".card-header-image {\n  background-image: url('https://icon-li
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"property-list-wrapper\">\n  <mat-card class=\"property-card\" *ngFor=\"let property of properties\">\n    <mat-card-header class=\"relative-position\">\n      <div mat-card-avatar class=\"card-header-image\"></div>\n      <mat-card-title>{{property.property_name}}</mat-card-title>\n      <mat-card-subtitle>{{property.property_location}}</mat-card-subtitle>\n      <button class=\"book-property-btn\" mat-raised-button color=\"primary\">Book</button>\n    </mat-card-header>\n  </mat-card>\n</div>"
+module.exports = "<div *ngIf=\"isLoading == false\">\n  <div class=\"property-list-wrapper\" *ngIf=\"properties.length > 1\">\n    <mat-card class=\"property-card\" *ngFor=\"let property of properties\">\n      <mat-card-header class=\"relative-position\">\n        <div mat-card-avatar class=\"card-header-image\"></div>\n        <mat-card-title>{{property.property_name}}</mat-card-title>\n        <mat-card-subtitle>{{property.property_location}}</mat-card-subtitle>\n        <button class=\"book-property-btn\" mat-raised-button color=\"primary\">Book</button>\n      </mat-card-header>\n    </mat-card>\n  </div>\n  <mat-card class=\"property-card\" *ngIf=\"properties.length == 0\">\n    <mat-card-header class=\"relative-position\">\n      <mat-card-subtitle>\n        <h3>No properties in this area.</h3>\n      </mat-card-subtitle>\n    </mat-card-header>\n  </mat-card>\n\n</div>\n<mat-card class=\"property-card\" *ngIf=\"isLoading\">\n  <mat-card-header class=\"relative-position\">\n    <mat-card-subtitle>\n      <h5>Loading Properties Near You.....</h5>\n    </mat-card-subtitle>\n  </mat-card-header>\n</mat-card>"
 
 /***/ }),
 
@@ -58,16 +58,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/get-property-bylocation.service */ "./src/app/services/get-property-bylocation.service.ts");
+/* harmony import */ var src_app_store_app_store_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/store/app-store.service */ "./src/app/store/app-store.service.ts");
+
 
 
 
 var PropertyListComponent = /** @class */ (function () {
-    function PropertyListComponent(propertiesNearUserService) {
+    function PropertyListComponent(propertiesNearUserService, store) {
         this.propertiesNearUserService = propertiesNearUserService;
+        this.store = store;
+        this.isLoading = true;
     }
     PropertyListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.propertiesNearUserService.getPropertyBasedOnUserLocation('', '').subscribe(function (data) {
+        this.store.stateChanged.subscribe(function (state) {
+            if (state.geoCodingData) {
+                var geoCodingData = state.geoCodingData;
+                _this.getPropertiesOnLocation(geoCodingData.lat, geoCodingData.lng);
+            }
+        });
+    };
+    PropertyListComponent.prototype.getPropertiesOnLocation = function (lat, long) {
+        var _this = this;
+        this.propertiesNearUserService.getPropertyBasedOnUserLocation(lat, long).subscribe(function (data) {
+            _this.isLoading = false;
             _this.properties = data;
         });
     };
@@ -77,7 +91,8 @@ var PropertyListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./property-list.component.html */ "./src/app/app-main/property-list/property-list.component.html"),
             styles: [__webpack_require__(/*! ./property-list.component.css */ "./src/app/app-main/property-list/property-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_2__["GetPropertyByLocationService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_2__["GetPropertyByLocationService"],
+            src_app_store_app_store_service__WEBPACK_IMPORTED_MODULE_3__["AppStoreService"]])
     ], PropertyListComponent);
     return PropertyListComponent;
 }());
@@ -255,7 +270,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "agm-map {\n  height: 100%;\n}\n\n:host {\n  height: 100%;\n}\n\n.map-wrapper {\n  height: 100%;\n  position: relative;\n}\n\n.map-input {\n  position: absolute;\n  z-index: 1;\n  background: #ffffffc4;\n  width: 100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwL21hcC1tYWluL21hcC1tYWluLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxZQUFZO0VBQ1osa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLFVBQVU7RUFDVixxQkFBcUI7RUFDckIsV0FBVztBQUNiIiwiZmlsZSI6InNyYy9hcHAvbWFwL21hcC1tYWluL21hcC1tYWluLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJhZ20tbWFwIHtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG46aG9zdCB7XG4gIGhlaWdodDogMTAwJTtcbn1cblxuLm1hcC13cmFwcGVyIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG5cbi5tYXAtaW5wdXQge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHotaW5kZXg6IDE7XG4gIGJhY2tncm91bmQ6ICNmZmZmZmZjNDtcbiAgd2lkdGg6IDEwMCU7XG59XG4iXX0= */"
+module.exports = "agm-map {\n  height: 100%;\n}\n\n:host {\n  height: 100%;\n}\n\n.map-wrapper {\n  height: 100%;\n  position: relative;\n}\n\n.map-input {\n  position: absolute;\n  z-index: 1;\n  background: #ffffffc4;\n  width: 100%;\n}\n\ninput#search-bar{\n  margin: 0 auto;\n  width: 100%;\n  height: 45px;\n  padding: 0 20px;\n  font-size: 1rem;\n  border: 1px solid #D0CFCE;\n  outline: none;\n  &:focus{\n    border: 1px solid #008ABF;\n    transition: 0.35s ease;\n    color: #008ABF;\n    &::-webkit-input-placeholder{\n      transition: opacity 0.45s ease; \n  \t  opacity: 0;\n     }\n    &::-moz-placeholder {\n      transition: opacity 0.45s ease; \n  \t  opacity: 0;\n     }\n    &:-ms-placeholder {\n     transition: opacity 0.45s ease; \n  \t opacity: 0;\n     }    \n   }\n }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwL21hcC1tYWluL21hcC1tYWluLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxZQUFZO0VBQ1osa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLFVBQVU7RUFDVixxQkFBcUI7RUFDckIsV0FBVztBQUNiOztBQUVBO0VBQ0UsY0FBYztFQUNkLFdBQVc7RUFDWCxZQUFZO0VBQ1osZUFBZTtFQUNmLGVBQWU7RUFDZix5QkFBeUI7RUFDekIsYUFBYTtFQUNiO0lBQ0UseUJBQXlCO0lBQ3pCLHNCQUFzQjtJQUN0QixjQUFjO0lBQ2Q7TUFDRSw4QkFBOEI7S0FDL0IsVUFBVTtLQUNWO0lBQ0Q7TUFDRSw4QkFBOEI7S0FDL0IsVUFBVTtLQUNWO0lBQ0Q7S0FDQyw4QkFBOEI7SUFDL0IsVUFBVTtLQUNUO0dBQ0Y7Q0FDRiIsImZpbGUiOiJzcmMvYXBwL21hcC9tYXAtbWFpbi9tYXAtbWFpbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYWdtLW1hcCB7XG4gIGhlaWdodDogMTAwJTtcbn1cblxuOmhvc3Qge1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5tYXAtd3JhcHBlciB7XG4gIGhlaWdodDogMTAwJTtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuXG4ubWFwLWlucHV0IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB6LWluZGV4OiAxO1xuICBiYWNrZ3JvdW5kOiAjZmZmZmZmYzQ7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG5pbnB1dCNzZWFyY2gtYmFye1xuICBtYXJnaW46IDAgYXV0bztcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogNDVweDtcbiAgcGFkZGluZzogMCAyMHB4O1xuICBmb250LXNpemU6IDFyZW07XG4gIGJvcmRlcjogMXB4IHNvbGlkICNEMENGQ0U7XG4gIG91dGxpbmU6IG5vbmU7XG4gICY6Zm9jdXN7XG4gICAgYm9yZGVyOiAxcHggc29saWQgIzAwOEFCRjtcbiAgICB0cmFuc2l0aW9uOiAwLjM1cyBlYXNlO1xuICAgIGNvbG9yOiAjMDA4QUJGO1xuICAgICY6Oi13ZWJraXQtaW5wdXQtcGxhY2Vob2xkZXJ7XG4gICAgICB0cmFuc2l0aW9uOiBvcGFjaXR5IDAuNDVzIGVhc2U7IFxuICBcdCAgb3BhY2l0eTogMDtcbiAgICAgfVxuICAgICY6Oi1tb3otcGxhY2Vob2xkZXIge1xuICAgICAgdHJhbnNpdGlvbjogb3BhY2l0eSAwLjQ1cyBlYXNlOyBcbiAgXHQgIG9wYWNpdHk6IDA7XG4gICAgIH1cbiAgICAmOi1tcy1wbGFjZWhvbGRlciB7XG4gICAgIHRyYW5zaXRpb246IG9wYWNpdHkgMC40NXMgZWFzZTsgXG4gIFx0IG9wYWNpdHk6IDA7XG4gICAgIH0gICAgXG4gICB9XG4gfVxuIl19 */"
 
 /***/ }),
 
@@ -266,7 +281,7 @@ module.exports = "agm-map {\n  height: 100%;\n}\n\n:host {\n  height: 100%;\n}\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"map-wrapper\">\n  <div class=\"form-group map-input\">\n    <input type=\"text\" id=\"search-box\" [(ngModel)]=\"searchInput\" (ngModelChange)=\"onSearch($event)\">\n  </div>\n  <agm-map [latitude]=\"latitude\" [longitude]=\"longitude\" [zoom]=\"zoom\">\n    <agm-marker [latitude]=\"latitude\" [longitude]=\"longitude\" [animation]=\"'BOUNCE'\">\n        <agm-info-window>\n            {{'USER'}}\n          </agm-info-window>\n    </agm-marker>\n    <!--These are property markers-->\n    <agm-marker [latitude]=\"location.property_lat\" [longitude]=\"location.property_long\"\n      *ngFor=\"let location of properties\">\n      <agm-info-window>\n        {{location.property_name}}\n      </agm-info-window>\n    </agm-marker>\n  </agm-map>\n</div>\n"
+module.exports = "<div class=\"map-wrapper\">\n  <div class=\"form-group map-input\">\n    <input type=\"text\" id=\"search-bar\" [(ngModel)]=\"searchQuery\"\n    placeholder=\"Enter place\"\n    (ngModelChange)=\"onSearch($event)\">\n  </div>\n  <agm-map [latitude]=\"latitude\" [longitude]=\"longitude\" [zoom]=\"zoom\">\n    <agm-marker [latitude]=\"latitude\" [longitude]=\"longitude\" [animation]=\"'BOUNCE'\">\n        <agm-info-window>\n            {{'USER'}}\n          </agm-info-window>\n    </agm-marker>\n    <!--These are property markers-->\n    <agm-marker [latitude]=\"location.property_lat\" [longitude]=\"location.property_long\"\n      *ngFor=\"let location of properties\">\n      <agm-info-window>\n        {{location.property_name}}\n      </agm-info-window>\n    </agm-marker>\n  </agm-map>\n</div>\n"
 
 /***/ }),
 
@@ -286,6 +301,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/get-property-bylocation.service */ "./src/app/services/get-property-bylocation.service.ts");
 /* harmony import */ var src_app_services_search_query_details_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/search-query-details.service */ "./src/app/services/search-query-details.service.ts");
 /* harmony import */ var src_app_store_app_store_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/store/app-store.service */ "./src/app/store/app-store.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
 
 
 
@@ -299,38 +318,50 @@ var MapMainComponent = /** @class */ (function () {
         this.userQueryGeocodingService = userQueryGeocodingService;
         this.store = store;
         this.zoom = 14;
-        this.searchInput = 'Munich';
+        this.searchQueryChanged = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
     }
     MapMainComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.getUserLocationFromDevice();
+        this.searchOnUserInput();
+        // Store subscription
+        this.store.stateChanged.subscribe(function (state) {
+            if (state.geoCodingData) {
+                var geoCodingData = state.geoCodingData;
+                _this.latitude = geoCodingData.lat;
+                _this.longitude = geoCodingData.lng;
+                _this.getPropertyData(geoCodingData.lat, geoCodingData.lng);
+            }
+        });
+    };
+    MapMainComponent.prototype.onSearch = function (searchQuery) {
+        this.searchQueryChanged.next(searchQuery);
+    };
+    MapMainComponent.prototype.getUserLocationFromDevice = function () {
+        var _this = this;
         this.userLocation.getCurrentPosition().subscribe(function (userLocationData) {
             console.log(userLocationData);
+            _this.latitude = userLocationData.coords.latitude;
+            _this.longitude = userLocationData.coords.longitude;
+            _this.userLocationData = userLocationData;
+            var storeGeoCodingData = {
+                geoCodingData: {
+                    lat: userLocationData.coords.latitude,
+                    lng: userLocationData.coords.longitude
+                }
+            };
+            // Once the location is received now call the backend API
+            _this.store.add(storeGeoCodingData.geoCodingData);
+            _this.getPropertyData(userLocationData.coords.latitude, userLocationData.coords.longitude);
+        }, function (err) {
             // This is hard coded because the database consists only these data.
-            var mockData = {
+            var defaultLocation = {
                 user_lat: 52.509677,
                 user_long: 13.370559
             };
-            _this.latitude = mockData.user_lat;
-            _this.longitude = mockData.user_long;
-            _this.userLocationData = userLocationData;
-            _this.propertiesNearUserService.getPropertyBasedOnUserLocation('', '').subscribe(function (data) {
-                _this.properties = _this.convertToNumber(data);
-                console.log(_this.convertToNumber(data));
-            });
-            // Once the location is received now call the backend API
-        }, function (err) {
-            console.error(err);
+            _this.getPropertyData(defaultLocation.user_lat, defaultLocation.user_long);
+            // console.error(err);
         });
-        // Store subscription
-        this.store.stateChanged.subscribe(function (state) {
-            if (state) {
-                console.log(state.geoCodingData);
-            }
-        });
-        this.getLocationDetailsFromUserInput();
-    };
-    MapMainComponent.prototype.onSearch = function (searchQuery) {
-        console.log(searchQuery);
     };
     MapMainComponent.prototype.convertToNumber = function (objects) {
         // tslint:disable-next-line:prefer-for-of
@@ -344,12 +375,27 @@ var MapMainComponent = /** @class */ (function () {
         }
         return objects;
     };
+    MapMainComponent.prototype.getPropertyData = function (lat, long) {
+        var _this = this;
+        this.propertiesNearUserService.getPropertyBasedOnUserLocation(lat, long).subscribe(function (data) {
+            _this.properties = _this.convertToNumber(data);
+            _this.latitude = lat;
+            _this.longitude = long;
+        });
+    };
     MapMainComponent.prototype.getLocationDetailsFromUserInput = function (searchQuery) {
         var query = {
-            address: 'Berlin',
+            address: searchQuery,
             responseFormat: 'json'
         };
         this.userQueryGeocodingService.getSearchQueryLocationDetails(query);
+    };
+    MapMainComponent.prototype.searchOnUserInput = function () {
+        var _this = this;
+        this.searchQueryChanged.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["debounceTime"])(2000), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["distinctUntilChanged"])()).subscribe(function (model) {
+            _this.searchQuery = model;
+            _this.getLocationDetailsFromUserInput(model);
+        });
     };
     MapMainComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -639,11 +685,11 @@ var GetPropertyByLocationService = /** @class */ (function () {
         this.dataSource = dataSource;
     }
     GetPropertyByLocationService.prototype.getPropertyBasedOnUserLocation = function (latitude, longitude) {
-        var mockData = {
-            user_lat: '52.11',
-            user_long: '13.23232332'
+        var locationParams = {
+            user_lat: latitude,
+            user_long: longitude
         };
-        return this.dataSource.post(_endpoints_dev_userdata__WEBPACK_IMPORTED_MODULE_3__["userServices"].GetPropertiesByUserLocation, mockData);
+        return this.dataSource.post(_endpoints_dev_userdata__WEBPACK_IMPORTED_MODULE_3__["userServices"].GetPropertiesByUserLocation, locationParams);
     };
     GetPropertyByLocationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),

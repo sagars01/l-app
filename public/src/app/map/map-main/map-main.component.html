@@ -1,6 +1,8 @@
 <div class="map-wrapper">
   <div class="form-group map-input">
-    <input type="text" id="search-box" [(ngModel)]="searchInput" (ngModelChange)="onSearch($event)">
+    <input type="text" id="search-bar" [(ngModel)]="searchQuery"
+    placeholder="Enter place"
+    (ngModelChange)="onSearch($event)">
   </div>
   <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
     <agm-marker [latitude]="latitude" [longitude]="longitude" [animation]="'BOUNCE'">
