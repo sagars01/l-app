@@ -22,7 +22,9 @@ users.getUserBookings = function (userId, result) {
     const bookingQuery = `SELECT id, property_id, property_location as city, property_name, from_unixtime(booking_date) as booking_date FROM users AS u
     LEFT JOIN bookings AS b ON u.id = b.booking_userid
     LEFT JOIN property AS p ON p.idproperty = b.property_id
-    WHERE id = ${userId}`
+    WHERE id = ${userId}
+    ORDER BY booking_date desc
+    `
 
     sql.query(bookingQuery, (err, res) => {
         if (err) {

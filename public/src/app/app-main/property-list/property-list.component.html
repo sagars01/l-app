@@ -5,7 +5,7 @@
         <div mat-card-avatar class="card-header-image"></div>
         <mat-card-title>{{property.property_name}}</mat-card-title>
         <mat-card-subtitle>{{property.property_location}}</mat-card-subtitle>
-        <button class="book-property-btn" mat-raised-button color="primary">Book</button>
+        <button class="book-property-btn" mat-raised-button color="primary" (click)="bookProperty(property)">Book</button>
       </mat-card-header>
     </mat-card>
   </div>

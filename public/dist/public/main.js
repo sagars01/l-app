@@ -41,7 +41,7 @@ module.exports = ".card-header-image {\n  background-image: url('https://icon-li
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"isLoading == false\">\n  <div class=\"property-list-wrapper\" *ngIf=\"properties.length > 1\">\n    <mat-card class=\"property-card\" *ngFor=\"let property of properties\">\n      <mat-card-header class=\"relative-position\">\n        <div mat-card-avatar class=\"card-header-image\"></div>\n        <mat-card-title>{{property.property_name}}</mat-card-title>\n        <mat-card-subtitle>{{property.property_location}}</mat-card-subtitle>\n        <button class=\"book-property-btn\" mat-raised-button color=\"primary\">Book</button>\n      </mat-card-header>\n    </mat-card>\n  </div>\n  <mat-card class=\"property-card\" *ngIf=\"properties.length == 0\">\n    <mat-card-header class=\"relative-position\">\n      <mat-card-subtitle>\n        <h3>No properties in this area.</h3>\n      </mat-card-subtitle>\n    </mat-card-header>\n  </mat-card>\n\n</div>\n<mat-card class=\"property-card\" *ngIf=\"isLoading\">\n  <mat-card-header class=\"relative-position\">\n    <mat-card-subtitle>\n      <h5>Loading Properties Near You.....</h5>\n    </mat-card-subtitle>\n  </mat-card-header>\n</mat-card>"
+module.exports = "<div *ngIf=\"isLoading == false\">\n  <div class=\"property-list-wrapper\" *ngIf=\"properties.length > 1\">\n    <mat-card class=\"property-card\" *ngFor=\"let property of properties\">\n      <mat-card-header class=\"relative-position\">\n        <div mat-card-avatar class=\"card-header-image\"></div>\n        <mat-card-title>{{property.property_name}}</mat-card-title>\n        <mat-card-subtitle>{{property.property_location}}</mat-card-subtitle>\n        <button class=\"book-property-btn\" mat-raised-button color=\"primary\" (click)=\"bookProperty(property)\">Book</button>\n      </mat-card-header>\n    </mat-card>\n  </div>\n  <mat-card class=\"property-card\" *ngIf=\"properties.length == 0\">\n    <mat-card-header class=\"relative-position\">\n      <mat-card-subtitle>\n        <h3>No properties in this area.</h3>\n      </mat-card-subtitle>\n    </mat-card-header>\n  </mat-card>\n\n</div>\n<mat-card class=\"property-card\" *ngIf=\"isLoading\">\n  <mat-card-header class=\"relative-position\">\n    <mat-card-subtitle>\n      <h5>Loading Properties Near You.....</h5>\n    </mat-card-subtitle>\n  </mat-card-header>\n</mat-card>"
 
 /***/ }),
 
@@ -59,14 +59,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/get-property-bylocation.service */ "./src/app/services/get-property-bylocation.service.ts");
 /* harmony import */ var src_app_store_app_store_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/store/app-store.service */ "./src/app/store/app-store.service.ts");
+/* harmony import */ var src_app_services_user_booking_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/user-booking.service */ "./src/app/services/user-booking.service.ts");
+
 
 
 
 
 var PropertyListComponent = /** @class */ (function () {
-    function PropertyListComponent(propertiesNearUserService, store) {
+    function PropertyListComponent(propertiesNearUserService, store, userBooking) {
         this.propertiesNearUserService = propertiesNearUserService;
         this.store = store;
+        this.userBooking = userBooking;
         this.isLoading = true;
     }
     PropertyListComponent.prototype.ngOnInit = function () {
@@ -85,6 +88,11 @@ var PropertyListComponent = /** @class */ (function () {
             _this.properties = data;
         });
     };
+    PropertyListComponent.prototype.bookProperty = function (propertyInformation) {
+        this.userBooking.bookNewProperty(propertyInformation.idproperty).subscribe(function (bookingConfirmation) {
+            console.log(bookingConfirmation);
+        });
+    };
     PropertyListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-property-list',
@@ -92,7 +100,8 @@ var PropertyListComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./property-list.component.css */ "./src/app/app-main/property-list/property-list.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_2__["GetPropertyByLocationService"],
-            src_app_store_app_store_service__WEBPACK_IMPORTED_MODULE_3__["AppStoreService"]])
+            src_app_store_app_store_service__WEBPACK_IMPORTED_MODULE_3__["AppStoreService"],
+            src_app_services_user_booking_service__WEBPACK_IMPORTED_MODULE_4__["UserBookingService"]])
     ], PropertyListComponent);
     return PropertyListComponent;
 }());
@@ -755,6 +764,48 @@ var SearchQueryDetailsService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/user-booking.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/services/user-booking.service.ts ***!
+  \**************************************************/
+/*! exports provided: UserBookingService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserBookingService", function() { return UserBookingService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _datasource_datasource_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./datasource/datasource.service */ "./src/app/services/datasource/datasource.service.ts");
+/* harmony import */ var _endpoints_dev_bookings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../endpoints/dev/bookings */ "./src/endpoints/dev/bookings.ts");
+
+
+
+
+var UserBookingService = /** @class */ (function () {
+    function UserBookingService(dataSource) {
+        this.dataSource = dataSource;
+    }
+    UserBookingService.prototype.bookNewProperty = function (propertyId) {
+        var bookingReqBody = {
+            user_id: 8,
+            property_id: propertyId,
+        };
+        return this.dataSource.post(_endpoints_dev_bookings__WEBPACK_IMPORTED_MODULE_3__["bookings"].BookNew, bookingReqBody);
+    };
+    UserBookingService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_datasource_datasource_service__WEBPACK_IMPORTED_MODULE_2__["DataSourceService"]])
+    ], UserBookingService);
+    return UserBookingService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/user-location.service.ts":
 /*!***************************************************!*\
   !*** ./src/app/services/user-location.service.ts ***!
@@ -850,6 +901,23 @@ var AppStoreService = /** @class */ (function (_super) {
     return AppStoreService;
 }(_codewithdan_observable_store__WEBPACK_IMPORTED_MODULE_2__["ObservableStore"]));
 
+
+
+/***/ }),
+
+/***/ "./src/endpoints/dev/bookings.ts":
+/*!***************************************!*\
+  !*** ./src/endpoints/dev/bookings.ts ***!
+  \***************************************/
+/*! exports provided: bookings */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bookings", function() { return bookings; });
+var bookings = {
+    BookNew: 'bookings/new'
+};
 
 
 /***/ }),
