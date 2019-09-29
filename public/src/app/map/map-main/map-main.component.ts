@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserLocationService } from '../../services/user-location.service';
 import { environment } from 'src/environments/environment';
 import { GetPropertyByLocationService } from 'src/app/services/get-property-bylocation.service';
+import { SearchQueryDetailsService } from 'src/app/services/search-query-details.service';
+import { AppStoreService } from 'src/app/store/app-store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-map-main',
@@ -12,6 +15,8 @@ export class MapMainComponent implements OnInit {
   constructor(
     private userLocation: UserLocationService,
     private propertiesNearUserService: GetPropertyByLocationService,
+    private userQueryGeocodingService: SearchQueryDetailsService,
+    private store: AppStoreService,
   ) { }
   userLocationData;
   latitude;
@@ -19,6 +24,8 @@ export class MapMainComponent implements OnInit {
   zoom = 14;
   properties;
   searchInput = 'Munich';
+  storeSubscription$: Subscription;
+
   ngOnInit() {
     this.userLocation.getCurrentPosition().subscribe(
       userLocationData => {
@@ -44,10 +51,20 @@ export class MapMainComponent implements OnInit {
         console.error(err);
       }
     );
+    // Store subscription
+    this.store.stateChanged.subscribe(
+      (state) => {
+        if (state) {
+          console.log(state.geoCodingData);
+        }
+
+      }
+    );
+    this.getLocationDetailsFromUserInput();
   }
 
-  onSearch(searchValue) {
-    console.log(searchValue);
+  onSearch(searchQuery) {
+    console.log(searchQuery);
   }
 
   private convertToNumber(objects) {
@@ -63,13 +80,25 @@ export class MapMainComponent implements OnInit {
     return objects;
   }
 
+  private getLocationDetailsFromUserInput(searchQuery?: IGeocoding) {
+    const query: IGeocoding = {
+      address: 'Berlin',
+      responseFormat: 'json'
+    };
+    this.userQueryGeocodingService.getSearchQueryLocationDetails(query);
+  }
 
 }
 
-
+// Can be moved to a new folder types
 interface Marker {
   lat: number;
   lng: number;
   label?: string;
   draggable: boolean;
+}
+
+interface IGeocoding {
+  address: string;
+  responseFormat: string;
 }

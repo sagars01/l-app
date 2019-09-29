@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC1tYWluL3Byb3BlcnR5LWxpc3QvcHJvcGVydHktbGlzdC5jb21wb25lbnQuY3NzIn0= */"
+module.exports = ".card-header-image {\n  background-image: url('https://icon-library.net/images/hotel-vector-icon/hotel-vector-icon-3.jpg');\n  background-size: cover;\n}\n\n.property-card {\n  margin-bottom: 1rem;\n}\n\n.property-card:last-child {\n  margin-bottom: 0;\n}\n\n.book-property-btn {\n  position: absolute;\n  right: 0;\n  top: calc(50% - 15px);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLW1haW4vcHJvcGVydHktbGlzdC9wcm9wZXJ0eS1saXN0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrR0FBa0c7RUFDbEcsc0JBQXNCO0FBQ3hCOztBQUVBO0VBQ0UsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0UsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLFFBQVE7RUFDUixxQkFBcUI7QUFDdkIiLCJmaWxlIjoic3JjL2FwcC9hcHAtbWFpbi9wcm9wZXJ0eS1saXN0L3Byb3BlcnR5LWxpc3QuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jYXJkLWhlYWRlci1pbWFnZSB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgnaHR0cHM6Ly9pY29uLWxpYnJhcnkubmV0L2ltYWdlcy9ob3RlbC12ZWN0b3ItaWNvbi9ob3RlbC12ZWN0b3ItaWNvbi0zLmpwZycpO1xuICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xufVxuXG4ucHJvcGVydHktY2FyZCB7XG4gIG1hcmdpbi1ib3R0b206IDFyZW07XG59XG5cbi5wcm9wZXJ0eS1jYXJkOmxhc3QtY2hpbGQge1xuICBtYXJnaW4tYm90dG9tOiAwO1xufVxuXG4uYm9vay1wcm9wZXJ0eS1idG4ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHJpZ2h0OiAwO1xuICB0b3A6IGNhbGMoNTAlIC0gMTVweCk7XG59Il19 */"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\nproperty-list works!\n</p>"
+module.exports = "<div class=\"property-list-wrapper\">\n  <mat-card class=\"property-card\" *ngFor=\"let property of properties\">\n    <mat-card-header class=\"relative-position\">\n      <div mat-card-avatar class=\"card-header-image\"></div>\n      <mat-card-title>{{property.property_name}}</mat-card-title>\n      <mat-card-subtitle>{{property.property_location}}</mat-card-subtitle>\n      <button class=\"book-property-btn\" mat-raised-button color=\"primary\">Book</button>\n    </mat-card-header>\n  </mat-card>\n</div>"
 
 /***/ }),
 
@@ -57,12 +57,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PropertyListComponent", function() { return PropertyListComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/get-property-bylocation.service */ "./src/app/services/get-property-bylocation.service.ts");
+
 
 
 var PropertyListComponent = /** @class */ (function () {
-    function PropertyListComponent() {
+    function PropertyListComponent(propertiesNearUserService) {
+        this.propertiesNearUserService = propertiesNearUserService;
     }
     PropertyListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.propertiesNearUserService.getPropertyBasedOnUserLocation('', '').subscribe(function (data) {
+            _this.properties = data;
+        });
     };
     PropertyListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -70,7 +77,7 @@ var PropertyListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./property-list.component.html */ "./src/app/app-main/property-list/property-list.component.html"),
             styles: [__webpack_require__(/*! ./property-list.component.css */ "./src/app/app-main/property-list/property-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_2__["GetPropertyByLocationService"]])
     ], PropertyListComponent);
     return PropertyListComponent;
 }());
@@ -119,7 +126,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "div#userApp {\n  overflow: scroll;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxnQkFBZ0I7QUFDbEIiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImRpdiN1c2VyQXBwIHtcbiAgb3ZlcmZsb3c6IHNjcm9sbDtcbn1cbiJdfQ== */"
 
 /***/ }),
 
@@ -188,6 +195,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _map_map_main_map_main_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./map/map-main/map-main.component */ "./src/app/map/map-main/map-main.component.ts");
 /* harmony import */ var _app_main_property_list_property_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-main/property-list/property-list.component */ "./src/app/app-main/property-list/property-list.component.ts");
 /* harmony import */ var _services_user_location_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/user-location.service */ "./src/app/services/user-location.service.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _services_datasource_datasource_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/datasource/datasource.service */ "./src/app/services/datasource/datasource.service.ts");
+/* harmony import */ var _services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/get-property-bylocation.service */ "./src/app/services/get-property-bylocation.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+
 
 
 
@@ -212,16 +227,17 @@ var AppModule = /** @class */ (function () {
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
                 _material_module__WEBPACK_IMPORTED_MODULE_6__["MaterialModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_5__["AgmCoreModule"].forRoot({
-                    apiKey: 'put your api key'
+                    apiKey: src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["environment"].GoogleMAPAPIKey
                 }),
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
             ],
-            providers: [_services_user_location_service__WEBPACK_IMPORTED_MODULE_11__["UserLocationService"]],
+            providers: [_services_user_location_service__WEBPACK_IMPORTED_MODULE_11__["UserLocationService"], _services_datasource_datasource_service__WEBPACK_IMPORTED_MODULE_13__["DataSourceService"], _services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_14__["GetPropertyByLocationService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
     ], AppModule);
@@ -250,7 +266,7 @@ module.exports = "agm-map {\n  height: 100%;\n}\n\n:host {\n  height: 100%;\n}\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"map-wrapper\">\n  <div class=\"form-group map-input\">\n    <form class=\"example-form\">\n      <mat-form-field class=\"example-full-width width-100\">\n        <input matInput placeholder=\"Search a place\">\n      </mat-form-field>\n    </form>\n  </div>\n  <agm-map [latitude]=\"latitude\" [longitude]=\"longitude\" [zoom]=\"zoom\">\n    <agm-marker [latitude]=\"latitude\" [longitude]=\"longitude\"></agm-marker>\n  </agm-map>\n</div>\n"
+module.exports = "<div class=\"map-wrapper\">\n  <div class=\"form-group map-input\">\n    <input type=\"text\" id=\"search-box\" [(ngModel)]=\"searchInput\" (ngModelChange)=\"onSearch($event)\">\n  </div>\n  <agm-map [latitude]=\"latitude\" [longitude]=\"longitude\" [zoom]=\"zoom\">\n    <agm-marker [latitude]=\"latitude\" [longitude]=\"longitude\" [animation]=\"'BOUNCE'\">\n        <agm-info-window>\n            {{'USER'}}\n          </agm-info-window>\n    </agm-marker>\n    <!--These are property markers-->\n    <agm-marker [latitude]=\"location.property_lat\" [longitude]=\"location.property_long\"\n      *ngFor=\"let location of properties\">\n      <agm-info-window>\n        {{location.property_name}}\n      </agm-info-window>\n    </agm-marker>\n  </agm-map>\n</div>\n"
 
 /***/ }),
 
@@ -267,27 +283,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_user_location_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/user-location.service */ "./src/app/services/user-location.service.ts");
+/* harmony import */ var src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/get-property-bylocation.service */ "./src/app/services/get-property-bylocation.service.ts");
+/* harmony import */ var src_app_services_search_query_details_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/search-query-details.service */ "./src/app/services/search-query-details.service.ts");
+/* harmony import */ var src_app_store_app_store_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/store/app-store.service */ "./src/app/store/app-store.service.ts");
+
+
+
 
 
 
 var MapMainComponent = /** @class */ (function () {
-    function MapMainComponent(userLocation) {
+    function MapMainComponent(userLocation, propertiesNearUserService, userQueryGeocodingService, store) {
         this.userLocation = userLocation;
-        this.zoom = 16;
-        // tslint:disable-next-line:max-line-length
-        this.placeSearchAPI = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=%2B61293744000&inputtype=phonenumber&fields=place_id&key=<YOUR_API_KEY>';
+        this.propertiesNearUserService = propertiesNearUserService;
+        this.userQueryGeocodingService = userQueryGeocodingService;
+        this.store = store;
+        this.zoom = 14;
+        this.searchInput = 'Munich';
     }
     MapMainComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userLocation.getCurrentPosition().subscribe(function (userLocationData) {
             console.log(userLocationData);
-            _this.latitude = userLocationData.coords.latitude;
-            _this.longitude = userLocationData.coords.longitude;
+            // This is hard coded because the database consists only these data.
+            var mockData = {
+                user_lat: 52.509677,
+                user_long: 13.370559
+            };
+            _this.latitude = mockData.user_lat;
+            _this.longitude = mockData.user_long;
             _this.userLocationData = userLocationData;
+            _this.propertiesNearUserService.getPropertyBasedOnUserLocation('', '').subscribe(function (data) {
+                _this.properties = _this.convertToNumber(data);
+                console.log(_this.convertToNumber(data));
+            });
             // Once the location is received now call the backend API
         }, function (err) {
             console.error(err);
         });
+        // Store subscription
+        this.store.stateChanged.subscribe(function (state) {
+            if (state) {
+                console.log(state.geoCodingData);
+            }
+        });
+        this.getLocationDetailsFromUserInput();
+    };
+    MapMainComponent.prototype.onSearch = function (searchQuery) {
+        console.log(searchQuery);
+    };
+    MapMainComponent.prototype.convertToNumber = function (objects) {
+        // tslint:disable-next-line:prefer-for-of
+        for (var i = 0; i < objects.length; i++) {
+            var obj = objects[i];
+            for (var prop in obj) {
+                if (obj.hasOwnProperty(prop) && obj[prop] !== null && !isNaN(obj[prop])) {
+                    obj[prop] = +obj[prop];
+                }
+            }
+        }
+        return objects;
+    };
+    MapMainComponent.prototype.getLocationDetailsFromUserInput = function (searchQuery) {
+        var query = {
+            address: 'Berlin',
+            responseFormat: 'json'
+        };
+        this.userQueryGeocodingService.getSearchQueryLocationDetails(query);
     };
     MapMainComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -295,7 +357,10 @@ var MapMainComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./map-main.component.html */ "./src/app/map/map-main/map-main.component.html"),
             styles: [__webpack_require__(/*! ./map-main.component.css */ "./src/app/map/map-main/map-main.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_location_service__WEBPACK_IMPORTED_MODULE_2__["UserLocationService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_location_service__WEBPACK_IMPORTED_MODULE_2__["UserLocationService"],
+            src_app_services_get_property_bylocation_service__WEBPACK_IMPORTED_MODULE_3__["GetPropertyByLocationService"],
+            src_app_services_search_query_details_service__WEBPACK_IMPORTED_MODULE_4__["SearchQueryDetailsService"],
+            src_app_store_app_store_service__WEBPACK_IMPORTED_MODULE_5__["AppStoreService"]])
     ], MapMainComponent);
     return MapMainComponent;
 }());
@@ -458,6 +523,192 @@ var MaterialModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/datasource/datasource.service.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/services/datasource/datasource.service.ts ***!
+  \***********************************************************/
+/*! exports provided: DataSourceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataSourceService", function() { return DataSourceService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+var DataSourceService = /** @class */ (function () {
+    function DataSourceService(http) {
+        this.http = http;
+        this.requestHeaders = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+    }
+    DataSourceService.prototype.get = function (url, headerOptions) {
+        var requestEndPoint = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].serviceEndPoints + "/" + url;
+        if (headerOptions) {
+            this.requestHeaders = headerOptions;
+        }
+        return this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].serviceEndPoints, this.requestHeaders);
+    };
+    DataSourceService.prototype.post = function (url, body, headerOptions) {
+        var requestEndPoint = src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].serviceEndPoints + "/" + url;
+        if (headerOptions) {
+            this.requestHeaders = headerOptions;
+        }
+        return this.http.post(requestEndPoint, body, this.requestHeaders);
+    };
+    DataSourceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], DataSourceService);
+    return DataSourceService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/datasource/google-map-geocoding.service.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/services/datasource/google-map-geocoding.service.ts ***!
+  \*********************************************************************/
+/*! exports provided: GoogleMapGeocodingService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GoogleMapGeocodingService", function() { return GoogleMapGeocodingService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _endpoints_dev_maps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../endpoints/dev/maps */ "./src/endpoints/dev/maps.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
+
+
+
+
+var GoogleMapGeocodingService = /** @class */ (function () {
+    function GoogleMapGeocodingService(http) {
+        this.http = http;
+    }
+    GoogleMapGeocodingService.prototype.get = function (params) {
+        var requestURL = _endpoints_dev_maps__WEBPACK_IMPORTED_MODULE_3__["maps"].GoogleGeoCoding + "/" + params.responseFormat + "?address=" + params.address + "&key=" + src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].GoogleMAPAPIKey;
+        return this.http.get(requestURL);
+    };
+    GoogleMapGeocodingService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], GoogleMapGeocodingService);
+    return GoogleMapGeocodingService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/get-property-bylocation.service.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/services/get-property-bylocation.service.ts ***!
+  \*************************************************************/
+/*! exports provided: GetPropertyByLocationService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetPropertyByLocationService", function() { return GetPropertyByLocationService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _datasource_datasource_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./datasource/datasource.service */ "./src/app/services/datasource/datasource.service.ts");
+/* harmony import */ var _endpoints_dev_userdata__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../endpoints/dev/userdata */ "./src/endpoints/dev/userdata.ts");
+
+
+
+
+var GetPropertyByLocationService = /** @class */ (function () {
+    function GetPropertyByLocationService(dataSource) {
+        this.dataSource = dataSource;
+    }
+    GetPropertyByLocationService.prototype.getPropertyBasedOnUserLocation = function (latitude, longitude) {
+        var mockData = {
+            user_lat: '52.11',
+            user_long: '13.23232332'
+        };
+        return this.dataSource.post(_endpoints_dev_userdata__WEBPACK_IMPORTED_MODULE_3__["userServices"].GetPropertiesByUserLocation, mockData);
+    };
+    GetPropertyByLocationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_datasource_datasource_service__WEBPACK_IMPORTED_MODULE_2__["DataSourceService"]])
+    ], GetPropertyByLocationService);
+    return GetPropertyByLocationService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/search-query-details.service.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/services/search-query-details.service.ts ***!
+  \**********************************************************/
+/*! exports provided: SearchQueryDetailsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchQueryDetailsService", function() { return SearchQueryDetailsService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _datasource_datasource_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./datasource/datasource.service */ "./src/app/services/datasource/datasource.service.ts");
+/* harmony import */ var _datasource_google_map_geocoding_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./datasource/google-map-geocoding.service */ "./src/app/services/datasource/google-map-geocoding.service.ts");
+/* harmony import */ var _store_app_store_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/app-store.service */ "./src/app/store/app-store.service.ts");
+
+
+
+
+
+var SearchQueryDetailsService = /** @class */ (function () {
+    function SearchQueryDetailsService(dataSource, geoCodingService, store) {
+        this.dataSource = dataSource;
+        this.geoCodingService = geoCodingService;
+        this.store = store;
+    }
+    /**
+     *
+     * @param queryParams send the address and response format
+     * @description subscribe to state for update search query information
+     */
+    SearchQueryDetailsService.prototype.getSearchQueryLocationDetails = function (queryParams) {
+        var _this = this;
+        return this.geoCodingService.get(queryParams).subscribe(function (geoCodingInformation) {
+            var locationCoords = geoCodingInformation.results[geoCodingInformation.results.length - 1].geometry.location;
+            _this.store.add(locationCoords);
+        });
+    };
+    SearchQueryDetailsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_datasource_datasource_service__WEBPACK_IMPORTED_MODULE_2__["DataSourceService"],
+            _datasource_google_map_geocoding_service__WEBPACK_IMPORTED_MODULE_3__["GoogleMapGeocodingService"],
+            _store_app_store_service__WEBPACK_IMPORTED_MODULE_4__["AppStoreService"]])
+    ], SearchQueryDetailsService);
+    return SearchQueryDetailsService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/user-location.service.ts":
 /*!***************************************************!*\
   !*** ./src/app/services/user-location.service.ts ***!
@@ -491,7 +742,7 @@ var UserLocationService = /** @class */ (function () {
                 observer.next(position);
                 observer.complete();
             }, function (error) {
-                console.log("Geolocation service: " + error.message);
+                console.log('Geolocation service: ' + error.message);
                 observer.error(error);
             });
         });
@@ -503,6 +754,92 @@ var UserLocationService = /** @class */ (function () {
     return UserLocationService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/store/app-store.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/store/app-store.service.ts ***!
+  \********************************************/
+/*! exports provided: AppStoreService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppStoreService", function() { return AppStoreService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _codewithdan_observable_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @codewithdan/observable-store */ "./node_modules/@codewithdan/observable-store/dist/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+var AppStoreService = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](AppStoreService, _super);
+    function AppStoreService() {
+        var _this = _super.call(this, { trackStateHistory: true }) || this;
+        var initialState = {
+            geoCodingData: null,
+        };
+        _this.setState(initialState, 'init_state');
+        return _this;
+    }
+    AppStoreService.prototype.get = function () {
+        var geoCodingData = this.getState().geoCodingData;
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(geoCodingData);
+    };
+    AppStoreService.prototype.add = function (data) {
+        var state = this.getState();
+        state.geoCodingData = data;
+        this.setState({ geoCodingData: state.geoCodingData }, 'add_geoCodingData');
+    };
+    AppStoreService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], AppStoreService);
+    return AppStoreService;
+}(_codewithdan_observable_store__WEBPACK_IMPORTED_MODULE_2__["ObservableStore"]));
+
+
+
+/***/ }),
+
+/***/ "./src/endpoints/dev/maps.ts":
+/*!***********************************!*\
+  !*** ./src/endpoints/dev/maps.ts ***!
+  \***********************************/
+/*! exports provided: maps */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "maps", function() { return maps; });
+var maps;
+(function (maps) {
+    maps["GooglePlaces"] = "https://maps.googleapis.com/maps/api/place/findplacefromtext/";
+    maps["GoogleGeoCoding"] = "https://maps.googleapis.com/maps/api/geocode";
+})(maps || (maps = {}));
+
+
+/***/ }),
+
+/***/ "./src/endpoints/dev/userdata.ts":
+/*!***************************************!*\
+  !*** ./src/endpoints/dev/userdata.ts ***!
+  \***************************************/
+/*! exports provided: userServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userServices", function() { return userServices; });
+var userServices = {
+    GetPropertiesByUserLocation: 'property/bylocation'
+};
 
 
 /***/ }),
@@ -521,7 +858,9 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
-    production: false
+    production: false,
+    GoogleMAPAPIKey: 'AIzaSyAYgEPaCX_KfngPWsnwXfIjOrgbh4Smvf8',
+    serviceEndPoints: 'http://localhost:3000'
 };
 /*
  * For easier debugging in development mode, you can import the following file
