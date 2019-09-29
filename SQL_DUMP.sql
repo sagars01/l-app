@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `LimeMaster` /*!40100 DEFAULT CHARACTER SET utf8 
 USE `LimeMaster`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
--- Host: 127.0.0.1    Database: LimeMaster
+-- Host: 127.0.0.1    Database: LimeMaster 
 -- ------------------------------------------------------
 -- Server version	5.7.20
 
