@@ -41,8 +41,12 @@ export class PropertyListComponent implements OnInit {
 
   bookProperty(propertyInformation) {
     this.userBooking.bookNewProperty(propertyInformation.idproperty).subscribe(
-      (bookingConfirmation) => {
-        console.log(bookingConfirmation);
+      (bookingConfirmation: any) => {
+        if (bookingConfirmation.status === 'OK') {
+          // tslint:disable-next-line:max-line-length
+          alert(`Booking Confirmed for UserId ${bookingConfirmation.booking.user_id} at PropertyId ${bookingConfirmation.booking.property_id}`);
+        }
+
       }
     );
   }

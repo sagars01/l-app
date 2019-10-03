@@ -11,7 +11,7 @@ const booking = {
             if (results.Error) {
                 res.status(500).json({ error: results.Error.sqlMessage });
             } else {
-                res.json({ status: 'OK' });
+                res.json({ status: 'OK', booking: bookingParams });
             }
         })
     }

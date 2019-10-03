@@ -90,7 +90,10 @@ var PropertyListComponent = /** @class */ (function () {
     };
     PropertyListComponent.prototype.bookProperty = function (propertyInformation) {
         this.userBooking.bookNewProperty(propertyInformation.idproperty).subscribe(function (bookingConfirmation) {
-            console.log(bookingConfirmation);
+            if (bookingConfirmation.status === 'OK') {
+                // tslint:disable-next-line:max-line-length
+                alert("Booking Confirmed for UserId " + bookingConfirmation.booking.user_id + " at PropertyId " + bookingConfirmation.booking.property_id);
+            }
         });
     };
     PropertyListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -365,10 +368,11 @@ var MapMainComponent = /** @class */ (function () {
         }, function (err) {
             // This is hard coded because the database consists only these data.
             var defaultLocation = {
-                user_lat: 52.509677,
-                user_long: 13.370559
+                lat: 52.509677,
+                lng: 13.370559
             };
-            _this.getPropertyData(defaultLocation.user_lat, defaultLocation.user_long);
+            // this.getPropertyData(defaultLocation.user_lat, defaultLocation.user_long);
+            _this.store.add(defaultLocation);
             // console.error(err);
         });
     };

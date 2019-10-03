@@ -62,7 +62,7 @@ export class MapMainComponent implements OnInit {
             lat: userLocationData.coords.latitude,
             lng: userLocationData.coords.longitude
           }
-        }
+        };
         // Once the location is received now call the backend API
         this.store.add(storeGeoCodingData.geoCodingData);
         this.getPropertyData(userLocationData.coords.latitude, userLocationData.coords.longitude);
@@ -70,10 +70,11 @@ export class MapMainComponent implements OnInit {
       err => {
         // This is hard coded because the database consists only these data.
         const defaultLocation = {
-          user_lat: 52.509677,
-          user_long: 13.370559
+          lat: 52.509677,
+          lng: 13.370559
         };
-        this.getPropertyData(defaultLocation.user_lat, defaultLocation.user_long);
+        // this.getPropertyData(defaultLocation.user_lat, defaultLocation.user_long);
+        this.store.add(defaultLocation);
         // console.error(err);
       }
     );
